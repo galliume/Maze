@@ -1,0 +1,2 @@
+# Maze
+Mazes for programmers
