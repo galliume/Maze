@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+.vs/
+bin/
+bin-int/
+x64
+Debug
+Maze.sln
+Maze.vcxproj
+Maze.vcxproj.filters
+Maze.vcxproj.user
