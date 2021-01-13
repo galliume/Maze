@@ -4,8 +4,8 @@
 class BinaryTree
 {
 public:
-	BinaryTree(Grid grid);
+	BinaryTree(Grid& grid);
 	Grid& GetGrid() { return grid; };
 private:
-	Grid grid;
+	Grid& grid;
 };

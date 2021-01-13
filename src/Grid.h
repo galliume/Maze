@@ -23,6 +23,7 @@ public:
 	std::unordered_map<int, std::vector<Cell>>& GetCells() { return cells; };
 	friend std::ostream& operator<<(std::ostream& os, Grid grid);
 	void ToPng(std::string filename, int cellSize = 10);
+	virtual std::string ContentsOf(Cell* cell);
 private:
 	int row = 0;
 	int column = 0;

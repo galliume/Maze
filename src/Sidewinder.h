@@ -4,8 +4,8 @@
 class Sidewinder
 {
 public:
-	Sidewinder(Grid grid);
+	Sidewinder(Grid& grid);
 	Grid& GetGrid() { return grid; };
 private:
-	Grid grid;
+	Grid& grid;
 };

@@ -55,11 +55,11 @@ std::ostream& operator<<(std::ostream& os, Grid grid)
 		for (int j = 0; j < grid.column; j++)
 		{
 			Cell cell = grid.GetCells()[i][j];
-			std::string body = "   ";
-			std::string eastBoundary = (nullptr != cell.east && cell.IsLinked(*cell.east)) ? " " : "|";
+			std::string body = " " + grid.ContentsOf(&cell) + " ";
+			std::string eastBoundary = (nullptr != cell.east && cell.IsLinked(cell.east)) ? " " : "|";
 			top += body + eastBoundary;
 
-			std::string southBoundary = (nullptr != cell.south && cell.IsLinked(*cell.south)) ? "   " : "---";
+			std::string southBoundary = (nullptr != cell.south && cell.IsLinked(cell.south)) ? "   " : "---";
 			std::string corner = "+";
 			bottom += southBoundary + corner;
 		}
@@ -99,11 +99,11 @@ void Grid::ToPng(std::string filename, int cellSize)
 				image.draw(Magick::DrawableLine(x1, y1, x1, y2));
 			}
 
-			if (nullptr == cell.east || !cell.IsLinked(*cell.east))
+			if (nullptr == cell.east || !cell.IsLinked(cell.east))
 			{
 				image.draw(Magick::DrawableLine(x2, y1, x2, y2));
 			}
-			if (nullptr == cell.south || !cell.IsLinked(*cell.south))
+			if (nullptr == cell.south || !cell.IsLinked(cell.south))
 			{
 				image.draw(Magick::DrawableLine(x1, y2, x2, y2));
 			}
@@ -111,4 +111,9 @@ void Grid::ToPng(std::string filename, int cellSize)
 	}
 
 	image.write(filename);
+}
+
+std::string Grid::ContentsOf(Cell* cell)
+{
+	return " ";
 }

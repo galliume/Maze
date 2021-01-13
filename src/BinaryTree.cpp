@@ -1,7 +1,7 @@
 #include "BinaryTree.h"
 #include <ctime>
 
-BinaryTree::BinaryTree(Grid grid) : grid(grid)
+BinaryTree::BinaryTree(Grid& grid) : grid(grid)
 {
 	for (int i = 0; i < GetGrid().GetRow(); i++)
 	{

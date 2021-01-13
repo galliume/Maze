@@ -1,6 +1,6 @@
 #include "Sidewinder.h"
 
-Sidewinder::Sidewinder(Grid grid) : grid(grid)
+Sidewinder::Sidewinder(Grid& grid) : grid(grid)
 {
 	for (int i = GetGrid().GetRow() - 1; i >= 0; i--)
 	{
