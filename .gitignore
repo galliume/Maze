@@ -40,3 +40,4 @@ Maze.sln
 Maze.vcxproj
 Maze.vcxproj.filters
 Maze.vcxproj.user
+*.png
