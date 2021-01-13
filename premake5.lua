@@ -11,6 +11,8 @@ workspace "Maze"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
+IncludeDir["magick"] = "vendor/Magick++/include"
+
 
 project "Maze"
 	location ""
@@ -36,38 +38,38 @@ project "Maze"
 	includedirs
 	{
 		"src",
-		"%{IncludeDir.magick}",
+		"%{IncludeDir.magick}"
+	}
+
+
+	libdirs
+	{
+		"vendor/Magick++/lib"
 	}
 
 	links 
-	{		
-
+	{	
+		"vendor/Magick++/lib/CORE_RL_Magick++_.lib"
 	}
 	
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
-		{
-			"RBL_PLATFORM_WINDOWS",
-			"RBL_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
-
+  postbuildcommands
+	{
+		("{COPY} vendor/Magick++/*.dll bin/" .. outputdir .. "/Maze")
+	}
 	filter "configurations:Debug"
-		defines "RBL_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "RBL_RELEASE"
 		runtime "Release"
 		symbols "on"
 
 	filter "configurations:Dist"
-		defines "RBL_DIST"
 		runtime "Release"
 		symbols "on"
 
 	filter { "system:windows", "configurations:Release" }
-        buildoptions "/MTd"
+        buildoptions "/MD"

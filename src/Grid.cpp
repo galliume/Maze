@@ -73,9 +73,42 @@ std::ostream& operator<<(std::ostream& os, Grid grid)
 	return os;
 }
 
-void Grid::ToPng(int cellSize)
+void Grid::ToPng(std::string filename, int cellSize)
 {
-	int imgWidth = cellSize * column;
-	int imgheight = cellSize * row;
+	int imgWidth = cellSize * column + 1;
+	int imgheight = cellSize * row + 1;
 
+	Magick::Image image(Magick::Geometry(imgWidth, imgheight), "white");
+	image.strokeColor("black"); 
+
+	for (auto rows : GetCells())
+	{
+		for (auto cell : rows.second)
+		{
+			int x1 = cell.GetColumn() * cellSize;
+			int y1 = cell.GetRow() * cellSize;
+			int x2 = (cell.GetColumn() + 1) * cellSize;
+			int y2 = (cell.GetRow() + 1) * cellSize;
+
+			if (nullptr == cell.north)
+			{
+				image.draw(Magick::DrawableLine(x1, y1, x2, y1));
+			}
+			if (nullptr == cell.west)
+			{
+				image.draw(Magick::DrawableLine(x1, y1, x1, y2));
+			}
+
+			if (nullptr == cell.east || !cell.IsLinked(*cell.east))
+			{
+				image.draw(Magick::DrawableLine(x2, y1, x2, y2));
+			}
+			if (nullptr == cell.south || !cell.IsLinked(*cell.south))
+			{
+				image.draw(Magick::DrawableLine(x1, y2, x2, y2));
+			}
+		}
+	}
+
+	image.write(filename);
 }
